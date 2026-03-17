@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>nihanth.dev | Frontend Developer & UI/UX Designer</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        serif: ['Instrument Serif', 'serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #050505;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .font-serif {
+            font-family: 'Instrument Serif', serif;
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, 
+                rgba(249, 115, 22, 0.08) 0%, 
+                transparent 40%,
+                rgba(168, 85, 247, 0.05) 60%,
+                transparent 100%);
+            animation: gradientShift 15s ease-in-out infinite;
+        }
+        
+        @keyframes gradientShift {
+            0%, 100% {
+                background: linear-gradient(135deg, 
+                    rgba(249, 115, 22, 0.08) 0%, 
+                    transparent 40%,
+                    rgba(168, 85, 247, 0.05) 60%,
+                    transparent 100%);
+            }
+            50% {
+                background: linear-gradient(135deg, 
+                    transparent 0%,
+                    rgba(168, 85, 247, 0.08) 40%,
+                    transparent 60%,
+                    rgba(249, 115, 22, 0.05) 100%);
+            }
+        }
+        
+        .noise::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+            pointer-events: none;
+            z-index: 50;
+        }
+        
+        .glass-card {
+            background: rgba(24, 24, 27, 0.4);
+            backdrop-filter: blur(24px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        .glass-card-hover:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .text-glow {
+            text-shadow: 0 0 40px rgba(249, 115, 22, 0.3);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .float {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        .skill-bar {
+            transform-origin: left;
+            transform: scaleX(0);
+            transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .skill-bar.active {
+            transform: scaleX(1);
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(12px);
+            background: rgba(5, 5, 5, 0.8);
+        }
+        
+        .project-image {
+            transition: all 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        
+        .project-card:hover .project-image {
+            transform: scale(1.05);
+        }
+        
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body class="noise text-white antialiased">
+    <!-- Animated Background -->
+    <div class="fixed inset-0 gradient-bg pointer-events-none"></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-40 nav-blur border-b border-white/5">
+        <div class="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
+            <a href="#" class="text-xl font-serif italic text-orange-400">nihanth.dev</a>
+            
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#about" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">About</a>
+                <a href="#skills" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">Skills</a>
+                <a href="#projects" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">Projects</a>
+                <a href="#services" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">Services</a>
+                <a href="#contact" class="px-5 py-2 text-xs font-medium tracking-wider uppercase bg-white text-black rounded-full hover:bg-zinc-200 transition-colors">Contact</a>
+            </div>
+            
+            <!-- Mobile Menu Button -->
+            <button id="mobileMenuBtn" class="md:hidden p-2 text-zinc-400 hover:text-white transition-colors">
+                <iconify-icon icon="lucide:menu" width="24"></iconify-icon>
+            </button>
+        </div>
+        
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden border-t border-white/5">
+            <div class="px-6 py-4 flex flex-col gap-4">
+                <a href="#about" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">About</a>
+                <a href="#skills" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">Skills</a>
+                <a href="#projects" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">Projects</a>
+                <a href="#services" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">Services</a>
+                <a href="#contact" class="text-sm font-light text-zinc-400 hover:text-white transition-colors">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero" class="min-h-screen flex items-center justify-center px-6 pt-16 relative overflow-hidden">
+        <!-- Decorative Elements -->
+        <div class="absolute top-1/4 left-10 w-64 h-64 bg-orange-500/10 rounded-full blur-[100px] animate-pulse"></div>
+        <div class="absolute bottom-1/4 right-10 w-96 h-96 bg-purple-500/10 rounded-full blur-[100px] animate-pulse" style="animation-delay: 1s;"></div>
+        
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <!-- Availability Badge -->
+            <div class="reveal inline-flex items-center gap-2 px-4 py-2 glass-card rounded-full mb-8">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+                </span>
+                <span class="text-xs font-medium tracking-wider uppercase text-zinc-400">Available for Projects</span>
+            </div>
+            
+            <!-- Main Heading -->
+            <h1 class="reveal text-5xl md:text-7xl lg:text-8xl font-serif tracking-tight leading-[0.9] mb-6 text-glow" style="transition-delay: 100ms;">
+                <span class="font-serif italic text-orange-400">nihanth.dev</span>
+            </h1>
+            
+            <!-- Subtitle -->
+            <p class="reveal text-lg md:text-xl font-light text-zinc-300 mb-6 tracking-wide" style="transition-delay: 200ms;">
+                Frontend Developer <span class="text-orange-400">|</span> Website Creator
+            </p>
+            
+            <!-- Description -->
+            <p class="reveal text-base md:text-lg font-light text-zinc-500 max-w-2xl mx-auto mb-10 leading-relaxed" style="transition-delay: 300ms;">
+                I build modern, fast, and visually stunning websites for businesses and creators. Transforming ideas into digital experiences that captivate and convert.
+            </p>
+            
+            <!-- CTA Buttons -->
+            <div class="reveal flex flex-col sm:flex-row items-center justify-center gap-4" style="transition-delay: 400ms;">
+                <a href="#projects" class="group px-8 py-3 bg-white text-black text-sm font-medium tracking-wider uppercase rounded-full hover:bg-zinc-200 transition-all">
+                    View My Work
+                    <iconify-icon icon="lucide:arrow-right" class="ml-2 group-hover:translate-x-1 transition-transform inline-block"></iconify-icon>
+                </a>
+                <a href="#contact" class="px-8 py-3 glass-card text-sm font-medium tracking-wider uppercase rounded-full hover:bg-white/10 transition-all">
+                    Get in Touch
+                </a>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="reveal absolute bottom-8 left-1/2 -translate-x-1/2" style="transition-delay: 600ms;">
+                <div class="flex flex-col items-center gap-2 text-zinc-600">
+                    <span class="text-xs tracking-wider uppercase">Scroll</span>
+                    <iconify-icon icon="lucide:arrow-down" class="animate-bounce"></iconify-icon>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 px-6 relative">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Image Side -->
+                <div class="reveal order-2 lg:order-1">
+                    <div class="relative">
+                        <div class="aspect-square max-w-md mx-auto rounded-2xl overflow-hidden glass-card p-2">
+                            <img src="https://picsum.photos/seed/developer-workspace/500/500.jpg" alt="Developer" class="w-full h-full object-cover rounded-xl">
+                        </div>
+                        <!-- Floating Stats Card -->
+                        <div class="absolute -bottom-6 -right-6 lg:right-4 glass-card rounded-xl p-6 float">
+                            <div class="text-4xl font-serif text-orange-400 mb-1">3+</div>
+                            <div class="text-xs text-zinc-400 tracking-wider uppercase">Years Experience</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Content Side -->
+                <div class="order-1 lg:order-2">
+                    <div class="reveal">
+                        <span class="text-xs font-medium tracking-[0.25em] uppercase text-orange-400 mb-4 block">About Me</span>
+                        <h2 class="text-4xl md:text-5xl font-serif tracking-tight mb-6">
+                            Crafting Digital<br><span class="font-serif italic text-zinc-400">Experiences</span>
+                        </h2>
+                    </div>
+                    
+                    <div class="reveal space-y-4 text-zinc-400 font-light leading-relaxed" style="transition-delay: 100ms;">
+                        <p>
+                            I'm a passionate Frontend Developer and UI/UX Designer specializing in creating beautiful, functional websites. My expertise lies in transforming complex ideas into clean, intuitive interfaces that users love.
+                        </p>
+                        <p>
+                            When I'm not coding, you'll find me exploring the latest design trends, contributing to open-source projects, or brainstorming my next creative endeavor.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 px-6 relative">
+        <div class="max-w-6xl mx-auto">
+            <!-- Section Header -->
+            <div class="reveal text-center mb-16">
+                <span class="text-xs font-medium tracking-[0.25em] uppercase text-orange-400 mb-4 block">Expertise</span>
+                <h2 class="text-4xl md:text-5xl font-serif tracking-tight">
+                    Skills & <span class="font-serif italic text-zinc-400">Technologies</span>
+                </h2>
+            </div>
+            
+            <!-- Skills Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- HTML -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-6 transition-all duration-500 group">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="logos:html-5" width="24"></iconify-icon>
+                        </div>
+                        <span class="text-2xl font-serif text-zinc-600">95%</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">HTML5</h3>
+                    <p class="text-sm text-zinc-500 font-light">Semantic markup, accessibility, SEO optimization</p>
+                    <div class="mt-4 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-orange-500 to-orange-400 rounded-full" style="width: 95%"></div>
+                    </div>
+                </div>
+                
+                <!-- CSS -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-6 transition-all duration-500 group" style="transition-delay: 50ms;">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="logos:css-3" width="24"></iconify-icon>
+                        </div>
+                        <span class="text-2xl font-serif text-zinc-600">92%</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">CSS3 / Tailwind</h3>
+                    <p class="text-sm text-zinc-500 font-light">Responsive design, animations, modern layouts</p>
+                    <div class="mt-4 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-blue-500 to-blue-400 rounded-full" style="width: 92%"></div>
+                    </div>
+                </div>
+                
+                <!-- JavaScript -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-6 transition-all duration-500 group" style="transition-delay: 100ms;">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-yellow-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="logos:javascript" width="24"></iconify-icon>
+                        </div>
+                        <span class="text-2xl font-serif text-zinc-600">88%</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">JavaScript</h3>
+                    <p class="text-sm text-zinc-500 font-light">ES6+, DOM manipulation, async programming</p>
+                    <div class="mt-4 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-yellow-500 to-yellow-400 rounded-full" style="width: 88%"></div>
+                    </div>
+                </div>
+                
+                <!-- React -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-6 transition-all duration-500 group" style="transition-delay: 150ms;">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="logos:react" width="24"></iconify-icon>
+                        </div>
+                        <span class="text-2xl font-serif text-zinc-600">85%</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">React</h3>
+                    <p class="text-sm text-zinc-500 font-light">Components, hooks, state management</p>
+                    <div class="mt-4 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-cyan-500 to-cyan-400 rounded-full" style="width: 85%"></div>
+                    </div>
+                </div>
+                
+                <!-- UI/UX Design -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-6 transition-all duration-500 group" style="transition-delay: 200ms;">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="lucide:palette" width="24" class="text-purple-400"></iconify-icon>
+                        </div>
+                        <span class="text-2xl font-serif text-zinc-600">90%</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">UI/UX Design</h3>
+                    <p class="text-sm text-zinc-500 font-light">Figma, user research, prototyping</p>
+                    <div class="mt-4 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-purple-500 to-purple-400 rounded-full" style="width: 90%"></div>
+                    </div>
+                </div>
+                
+                <!-- Git -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-6 transition-all duration-500 group" style="transition-delay: 250ms;">
+                    <div class="flex items-start justify-between mb-4">
+                        <div class="w-12 h-12 rounded-xl bg-red-500/20 flex items-center justify-center group-hover:scale-110 transition-transform">
+                            <iconify-icon icon="logos:git-icon" width="24"></iconify-icon>
+                        </div>
+                        <span class="text-2xl font-serif text-zinc-600">87%</span>
+                    </div>
+                    <h3 class="text-lg font-medium mb-2">Git & GitHub</h3>
+                    <p class="text-sm text-zinc-500 font-light">Version control, collaboration, CI/CD</p>
+                    <div class="mt-4 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                        <div class="skill-bar h-full bg-gradient-to-r from-red-500 to-red-400 rounded-full" style="width: 87%"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 px-6 relative">
+        <div class="max-w-6xl mx-auto">
+            <!-- Section Header -->
+            <div class="reveal text-center mb-16">
+                <span class="text-xs font-medium tracking-[0.25em] uppercase text-orange-400 mb-4 block">Portfolio</span>
+                <h2 class="text-4xl md:text-5xl font-serif tracking-tight">
+                    Featured <span class="font-serif italic text-zinc-400">Projects</span>
+                </h2>
+            </div>
+            
+            <!-- Projects Grid -->
+            <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                <!-- Project 1: Medical Store Website -->
+                <div class="reveal project-card group">
+                    <div class="glass-card rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/20">
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img src="https://picsum.photos/seed/medical-pills-store/800/500.jpg" alt="Medical Store Website" class="project-image w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 text-xs tracking-wider uppercase bg-orange-500/20 text-orange-400 rounded-full">E-Commerce</span>
+                                <span class="px-3 py-1 text-xs tracking-wider uppercase bg-white/5 text-zinc-500 rounded-full">Healthcare</span>
+                            </div>
+                            <h3 class="text-xl font-medium mb-2 group-hover:text-orange-400 transition-colors">Medical Store Website</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                                A comprehensive online pharmacy platform with product catalog, search functionality, and secure checkout process.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs text-zinc-600">HTML</span>
+                                <span class="text-zinc-700">•</span>
+                                <span class="text-xs text-zinc-600">CSS</span>
+                                <span class="text-zinc-700">•</span>
+                                <span class="text-xs text-zinc-600">JavaScript</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="pharmacy sample.html" class="flex items-center gap-2 px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-zinc-200 transition-colors">
+                                    <iconify-icon icon="lucide:external-link" width="16"></iconify-icon>
+                                    Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Project 2: Minecraft Server Store -->
+                <div class="reveal project-card group" style="transition-delay: 100ms;">
+                    <div class="glass-card rounded-2xl overflow-hidden transition-all duration-500 hover:border-white/20">
+                        <div class="aspect-[16/10] overflow-hidden">
+                            <img src="https://picsum.photos/seed/minecraft-gaming-server/800/500.jpg" alt="Minecraft Server Store" class="project-image w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center gap-2 mb-3">
+                                <span class="px-3 py-1 text-xs tracking-wider uppercase bg-emerald-500/20 text-emerald-400 rounded-full">Gaming</span>
+                                <span class="px-3 py-1 text-xs tracking-wider uppercase bg-white/5 text-zinc-500 rounded-full">E-Commerce</span>
+                            </div>
+                            <h3 class="text-xl font-medium mb-2 group-hover:text-orange-400 transition-colors">Venkatsai - Minecraft Server Store</h3>
+                            <p class="text-sm text-zinc-500 font-light leading-relaxed mb-4">
+                                A gaming server store for selling Minecraft servers with pricing plans, features comparison, and instant setup.
+                            </p>
+                            <div class="flex flex-wrap gap-2 mb-6">
+                                <span class="text-xs text-zinc-600">HTML</span>
+                                <span class="text-zinc-700">•</span>
+                                <span class="text-xs text-zinc-600">CSS</span>
+                                <span class="text-zinc-700">•</span>
+                                <span class="text-xs text-zinc-600">JavaScript</span>
+                            </div>
+                            <div class="flex gap-4">
+                                <a href="venkatsai.html" class="flex items-center gap-2 px-4 py-2 bg-white text-black text-sm font-medium rounded-full hover:bg-zinc-200 transition-colors">
+                                    <iconify-icon icon="lucide:external-link" width="16"></iconify-icon>
+                                    Live Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-24 px-6 relative">
+        <div class="max-w-6xl mx-auto">
+            <!-- Section Header -->
+            <div class="reveal text-center mb-16">
+                <span class="text-xs font-medium tracking-[0.25em] uppercase text-orange-400 mb-4 block">What I Offer</span>
+                <h2 class="text-4xl md:text-5xl font-serif tracking-tight">
+                    My <span class="font-serif italic text-zinc-400">Services</span>
+                </h2>
+            </div>
+            
+            <!-- Services Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Service 1 -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-8 transition-all duration-500 group">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-orange-500/20 to-orange-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:globe" width="28" class="text-orange-400"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">Business Websites</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Professional websites for businesses, startups, and entrepreneurs with SEO optimization.
+                    </p>
+                </div>
+                
+                <!-- Service 2 -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-8 transition-all duration-500 group" style="transition-delay: 100ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-purple-500/20 to-purple-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:palette" width="28" class="text-purple-400"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">UI/UX Design</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        User-centered design solutions from wireframes to final designs.
+                    </p>
+                </div>
+                
+                <!-- Service 3 -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-8 transition-all duration-500 group" style="transition-delay: 200ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:shopping-cart" width="28" class="text-emerald-400"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">E-Commerce Sites</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Full-featured online stores with secure checkout and inventory management.
+                    </p>
+                </div>
+                
+                <!-- Service 4 -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-8 transition-all duration-500 group" style="transition-delay: 300ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-500/20 to-blue-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:smartphone" width="28" class="text-blue-400"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">Landing Pages</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        High-converting landing pages optimized for speed and conversions.
+                    </p>
+                </div>
+                
+                <!-- Service 5 -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-8 transition-all duration-500 group" style="transition-delay: 400ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-pink-500/20 to-pink-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:pen-tool" width="28" class="text-pink-400"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">Portfolio Sites</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Stunning portfolio websites to showcase your work beautifully.
+                    </p>
+                </div>
+                
+                <!-- Service 6 -->
+                <div class="reveal glass-card glass-card-hover rounded-2xl p-8 transition-all duration-500 group" style="transition-delay: 500ms;">
+                    <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-yellow-500/20 to-yellow-600/20 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        <iconify-icon icon="lucide:wrench" width="28" class="text-yellow-400"></iconify-icon>
+                    </div>
+                    <h3 class="text-xl font-medium mb-3">Website Maintenance</h3>
+                    <p class="text-sm text-zinc-500 font-light leading-relaxed">
+                        Ongoing support to keep your website secure and performing optimally.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 px-6 relative">
+        <div class="max-w-4xl mx-auto">
+            <!-- Section Header -->
+            <div class="reveal text-center mb-16">
+                <span class="text-xs font-medium tracking-[0.25em] uppercase text-orange-400 mb-4 block">Get in Touch</span>
+                <h2 class="text-4xl md:text-5xl font-serif tracking-tight mb-4">
+                    Let's Work <span class="font-serif italic text-zinc-400">Together</span>
+                </h2>
+                <p class="text-zinc-500 font-light max-w-xl mx-auto">
+                    Have a project in mind? Send me a message and let's create something amazing together.
+                </p>
+            </div>
+            
+            <!-- Contact Form -->
+            <div class="reveal glass-card rounded-2xl p-8 md:p-12" style="transition-delay: 100ms;">
+                <form id="contactForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="name" class="block text-sm font-medium text-zinc-400 mb-2">Your Name</label>
+                            <input type="text" id="name" name="name" required
+                                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-orange-400/50 transition-colors"
+                                placeholder="John Doe">
+                        </div>
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-zinc-400 mb-2">Your Email</label>
+                            <input type="email" id="email" name="email" required
+                                class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-orange-400/50 transition-colors"
+                                placeholder="john@example.com">
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-zinc-400 mb-2">Subject</label>
+                        <input type="text" id="subject" name="subject" required
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-orange-400/50 transition-colors"
+                            placeholder="Project Inquiry">
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-zinc-400 mb-2">Your Message</label>
+                        <textarea id="message" name="message" rows="5" required
+                            class="w-full px-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-zinc-600 focus:outline-none focus:border-orange-400/50 transition-colors resize-none"
+                            placeholder="Tell me about your project..."></textarea>
+                    </div>
+                    
+                    <button type="submit"
+                        class="w-full py-4 bg-white text-black text-sm font-medium tracking-wider uppercase rounded-xl hover:bg-zinc-200 transition-colors flex items-center justify-center gap-2 group">
+                        Send Message
+                        <iconify-icon icon="lucide:send" class="group-hover:translate-x-1 transition-transform"></iconify-icon>
+                    </button>
+                </form>
+                
+                <!-- Contact Info -->
+                <div class="mt-8 pt-8 border-t border-white/5">
+                    <p class="text-center text-sm text-zinc-500 mb-4">Or reach out directly:</p>
+                    <div class="flex flex-wrap justify-center gap-6">
+                        <a href="mailto:27nihanth02009@gmail.com" class="flex items-center gap-2 text-zinc-400 hover:text-orange-400 transition-colors">
+                            <iconify-icon icon="lucide:mail" width="18"></iconify-icon>
+                            27nihanth02009@gmail.com
+                        </a>
+                        <a href="tel:+919030103151" class="flex items-center gap-2 text-zinc-400 hover:text-orange-400 transition-colors">
+                            <iconify-icon icon="lucide:phone" width="18"></iconify-icon>
+                            +91 9030103151
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 px-6 border-t border-white/5">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+                <!-- Logo & Copyright -->
+                <div class="flex flex-col items-center md:items-start gap-2">
+                    <a href="#" class="text-xl font-serif italic text-orange-400">nihanth.dev</a>
+                    <p class="text-xs text-zinc-600">© 2024 nihanth.dev. All rights reserved.</p>
+                </div>
+                
+                <!-- Contact Info -->
+                <div class="flex flex-col sm:flex-row items-center gap-4 text-sm text-zinc-500">
+                    <a href="mailto:27nihanth02009@gmail.com" class="hover:text-orange-400 transition-colors">27nihanth02009@gmail.com</a>
+                    <span class="hidden sm:inline text-zinc-700">|</span>
+                    <a href="tel:+919030103151" class="hover:text-orange-400 transition-colors">+91 9030103151</a>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="flex items-center gap-4">
+                    <a href="https://github.com" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 glass-card rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-white/20 transition-all">
+                        <iconify-icon icon="lucide:github" width="20"></iconify-icon>
+                    </a>
+                    <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 glass-card rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-white/20 transition-all">
+                        <iconify-icon icon="lucide:linkedin" width="20"></iconify-icon>
+                    </a>
+                    <a href="https://twitter.com" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 glass-card rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-white/20 transition-all">
+                        <iconify-icon icon="lucide:twitter" width="20"></iconify-icon>
+                    </a>
+                    <a href="https://dribbble.com" target="_blank" rel="noopener noreferrer"
+                        class="w-10 h-10 glass-card rounded-full flex items-center justify-center text-zinc-400 hover:text-white hover:border-white/20 transition-all">
+                        <iconify-icon icon="lucide:dribbble" width="20"></iconify-icon>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Back to Top -->
+            <div class="mt-8 text-center">
+                <a href="#hero" class="inline-flex items-center gap-2 text-xs text-zinc-600 hover:text-zinc-400 transition-colors">
+                    <iconify-icon icon="lucide:arrow-up" width="14"></iconify-icon>
+                    Back to Top
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Intersection Observer for reveal animations
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+        // Observe skill bars
+        const skillObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.skill-bar').forEach(el => skillObserver.observe(el));
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            const icon = mobileMenuBtn.querySelector('iconify-icon');
+            if (mobileMenu.classList.contains('hidden')) {
+                icon.setAttribute('icon', 'lucide:menu');
+            } else {
+                icon.setAttribute('icon', 'lucide:x');
+            }
+        });
+
+        // Close mobile menu on link click
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+                mobileMenuBtn.querySelector('iconify-icon').setAttribute('icon', 'lucide:menu');
+            });
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const offsetTop = target.offsetTop - 64;
+                    window.scrollTo({
+                        top: offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Form submission handler
+        const contactForm = document.getElementById('contactForm');
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const button = this.querySelector('button[type="submit"]');
+            const originalText = button.innerHTML;
+            button.innerHTML = '<iconify-icon icon="lucide:check" class="text-emerald-500"></iconify-icon> Message Sent!';
+            button.disabled = true;
+            button.classList.add('bg-emerald-500/20', 'text-emerald-400');
+            
+            this.reset();
+            
+            setTimeout(() => {
+                button.innerHTML = originalText;
+                button.disabled = false;
+                button.classList.remove('bg-emerald-500/20', 'text-emerald-400');
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
